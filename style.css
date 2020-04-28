@@ -11,6 +11,7 @@ body{
     margin: 0;
     padding: 0;
     border: 0;
+    font-family: 'Montserrat', sans-serif;
 }
 
 .wrapper{
@@ -43,7 +44,6 @@ main {
 img{
     height: 100px;
     width: 100px;
-
 }
 
 button{
