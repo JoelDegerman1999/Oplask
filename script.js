@@ -12,7 +12,7 @@ async function Main() {
 
 
 async function searchForImage(input) {
-    let rawData = await fetch(`https://api.unsplash.com/search/photos/?query=${input}&client_id=${key}`)
+    let rawData = await fetch(`https://api.unsplash.com/search/photos/?query=${input}&client_id=${key}&per_page=18`)
     return await rawData.json()
 }
 

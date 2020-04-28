@@ -3,48 +3,40 @@
 
 }
 
-html {
-   
-        height: 100%;
-        margin: 0;
-        padding: 0;
-        background-color: rgb(255, 255, 255);
-        display: grid;
-        grid-template-columns: 10px auto 10px;
-        grid-template-rows: 10px auto 10px;
-
-
+.prototype {
+    display: none;
 }
 
 body{
     margin: 0;
     padding: 0;
     border: 0;
-    grid-column-start:2 ;
-    grid-column-end:3 ;
-    grid-row-start:2 ;
-    grid-row-end:3 ;
 }
 
 .wrapper{
     display: grid;
-    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-areas: 
+    "header"
+    "main"
+    "footer";
     height: 100%;
 }
 
-.header{
-    grid-row-start: 1;
-    grid-row-end: 2;
+header{
+    grid-area: header;
 }
+
+main {
+    grid-area: main;
+}
+
 
 .gallery{
     height: 100%;
     width: 100%;
-    grid-row-start: 2;
-    grid-row-end: 11;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: 100px;
 
 }
 
