@@ -1,7 +1,55 @@
 *{
     margin: 0;
-
+    font-family: 'Montserrat', sans-serif;
+    margin-right: 3px;
 }
+
+.buttons{
+    display: flex;
+    justify-content: center;
+}
+
+.button-backwards {
+	background-color:#d1d1d1;
+	border-radius:28px;
+	border:1px solid #dedede;
+	display:inline-block;
+	cursor:pointer;
+	color:#000000;
+	font-family:Arial;
+	font-size:17px;
+	padding:3px 16px;
+	text-decoration:none;
+}
+.button-backwards:hover {
+	background-color:#ffffff;
+}
+.button-backwards:active {
+	position:relative;
+	top:1px;
+}
+
+
+.button-forward {
+	background-color:#d1d1d1;
+	border-radius:28px;
+	border:1px solid #dedede;
+	display:inline-block;
+	cursor:pointer;
+	color:#000000;
+	font-family:Arial;
+	font-size:17px;
+	padding:3px 16px;
+	text-decoration:none;
+}
+.button-forward:hover {
+	background-color:#ffffff;
+}
+.button-forward:active {
+	position:relative;
+	top:1px;
+}
+
 
 html {
    
@@ -12,9 +60,49 @@ html {
         display: grid;
         grid-template-columns: 10px auto 10px;
         grid-template-rows: 10px auto 10px;
-
-
 }
+    footer {
+        grid-area: footer;
+        margin-left: 5px;
+       width: 100%;
+       display: flex;
+       justify-content: center;
+        grid-area: footer;
+    }
+    
+    
+    .gallery{
+        height: 100%;
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-auto-rows: 100px;
+    }
+    
+    img{
+        height: 100px;
+        width: 100px;
+    }
+    
+    input.search-input{
+        margin: 5px;
+        height: 30px;
+        width: 100%;
+        background-color: rgb(201, 201, 201);
+        padding-left: 5px;
+    }
+
+    .search-wrapper-index {
+        position: relative;
+    }
+    
+    .search-wrapper-index img {
+        position: absolute;
+        height: 30px;
+        width: 30px;
+        top: 8px;
+        left: 320px;
+    }
 
 body{
     margin: 0;
@@ -45,25 +133,88 @@ body{
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
-
 }
+
+    .search-wrapper-favorites {
+        position: relative;
+    }
+    
+    .search-wrapper-favorites img {
+        position: absolute;
+        height: 30px;
+        width: 30px;
+        top: 8px;
+        left: 320px;
+    }
+    
+    h1{
+        margin: 5px;
+    }
+    
+    header{
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+    }
 
 img{
     height: 100px;
     width: 100px;
-
 }
+    footer {
+        margin-left: 5px;
+       width: 100%;
+       display: flex;
+       justify-content: center;
+        grid-area: footer;
+        
+        background-color: rgb(255, 255, 255);
+    }
+    
+    
+    .gallery{
+        height: 100%;
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-auto-rows: 100px;
+    
+    }
+    
+    img{
+        height: 100px;
+        width: 100px;
+    
+    }
+    
+    input.search-input{
+        margin: 5px;
+        height: 30px;
+        width: 100%;
+        background-color: rgb(201, 201, 201);
+        border: none;
+        padding-left: 10px;
+    
+    }
 
-button{
+    .search-wrapper-index {
+        position: relative;
+    }
+    
+    .search-wrapper-index img {
+        position: absolute;
+        height: 25px;
+        width: 25px;
+        top: 9px;
+        left: 925px;
+    }
 
-}
 
 .button-backward{
     size: 50px;
     position: absolute;
     top: 785px;
     left: 90px;
-
 }
 
 .button-forward{
@@ -71,26 +222,26 @@ button{
     position: absolute;
     top: 785px;
     left: 260px;
-
 }
 
-.searchfield{
-    margin: 5px;
-
-}
-
-h1{
-    margin: 5px;
-}
-
-header{
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-}
-
-.favorites-link{
-    position: absolute;
-    top: 20px;
-    left: 290px;
-}
+    .search-wrapper-favorites {
+        position: relative;
+    }
+    
+    .search-wrapper-favorites img {
+        position: absolute;
+        height: 25px;
+        width: 25px;
+        top: 9px;
+        left: 925px;
+    }
+    
+    h1{
+        margin: 5px;
+    }
+    
+    header{
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+    }
