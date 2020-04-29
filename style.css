@@ -197,6 +197,16 @@ article.photo img {
 }
 
 @media screen and (min-width: 800px) {
+
+.hidden {
+    display: none;
+}
+
+    .favorite {
+        position: relative;
+        bottom: -7%;
+    }
+
   .prototype {
     display: none;
   }
