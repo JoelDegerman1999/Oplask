@@ -24,10 +24,8 @@ async function loadNewestImagesAtStartup() {
   }
 
   //ge alla knappar funktionen att spara till favorit-listan
-  let selectButtons = document.querySelectorAll("button");
-  selectButtons.forEach((element) => {
-    element.addEventListener("click", markAsFavorite);
-  });
+  let selectButtons = document.querySelectorAll(".favorite");
+  selectButtons.forEach(element => element.addEventListener("click", markAsFavorite));
 }
 
 //TODO fixa - fungerar ej i nyare Chrome-versioner
@@ -47,7 +45,9 @@ async function downloadImage() {
 }
 
 function markAsFavorite() {
-  let urlToLookFor = event.target.parentNode.lastChild.src;
+  let article = event.target.parentNode;
+  let img = article.querySelector('img')
+  let urlToLookFor = img.src
 
   for (let i = 0; i < downloadedImages.length; i++) {
     if (downloadedImages[i].urls.small == urlToLookFor) {

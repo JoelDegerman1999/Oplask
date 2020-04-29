@@ -14,6 +14,8 @@ async function Main() {
   input.addEventListener("change", () => {
     newInput = input.value;
     showSearchedImage(newInput, searchForImage);
+    nextPageBtn.classList.remove("hidden")
+    prevPageBtn.classList.remove("hidden")
   });
   nextPageBtn.addEventListener("click", () =>
     showSearchedImage(newInput, nextPage)
