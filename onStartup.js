@@ -19,7 +19,7 @@ async function loadNewestImagesAtStartup() {
     newArticle.classList.remove("prototype");
     let img = newArticle.querySelector("img");
     img.setAttribute("alt", data[i].alt_description); 
-    img.setAttribute("src", data[i].urls.small);
+    img.setAttribute("src", data[i].urls.regular);
     container.appendChild(newArticle);
   }
 
@@ -50,7 +50,7 @@ function markAsFavorite() {
   let urlToLookFor = img.src
 
   for (let i = 0; i < downloadedImages.length; i++) {
-    if (downloadedImages[i].urls.small == urlToLookFor) {
+    if (downloadedImages[i].urls.regular == urlToLookFor) {
       if (favoriteImages.includes(downloadedImages[i])) {
         //UN-FAVORITE
         favoriteImages.splice(favoriteImages.indexOf(downloadedImages[i]), 1);
@@ -69,7 +69,7 @@ function loadFavoritesOnStartup() {
     downloadedImages.push(favoriteImages[i]);
     imageArray[i].addEventListener("click", downloadImage);
     imageArray[i].id = favoriteImages[i].links.download_location;
-    imageArray[i].setAttribute("src", favoriteImages[i].urls.small);
+    imageArray[i].setAttribute("src", favoriteImages[i].urls.regular);
     imageArray[i].setAttribute("alt", favoriteImages[i].alt_description);
   }
 }

@@ -3,30 +3,42 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="style.css" />
     <title>Oplask</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
   </head>
   <body>
     <div class="wrapper">
       <header>
-        <h1>Oplask</h1>
-        <a href="favorites.html" class="favorites-link">Favorites</a>
-        <input type="text" placeholder="Search.." class="search-input" />
+        <div class="div-header">
+          <h1>Oplask</h1>
+          <div class="favorites-wrapper-index">
+            <a href="favorites.html" class="favorites-link">Favorites</a>
+            <img class="heart-pic-index" src="heart.svg" />
+            </div>
+        </div>
+       
+        <div class="search-wrapper-index">
+            <!-- <img class="search-pic-index" src="magnifier.svg" /> -->
+            <input type="text" placeholder="Search.." class="search-input" />
+        </div>
       </header>
 
       <main>
         <section class="gallery">
           <article class="photo prototype">
-            <button class="favorite">Favorite</button>
-            <img src="" alt="" />
+            <a href="https://images.unsplash.com/photo-1505761671935-60b3a7427bad?ixlib=rb-1.2.1&q=85&fm=jpg&crop=entropy&cs=srgb&ixid=eyJhcHBfaWQiOjEzMDY1MX0"><img src="" alt="" /></a>
           </article>
         </section>
-        <button class="prev-page hidden">Previous page</button>
-        <button class="next-page hidden">Next page</button>
+        <div class="buttons">
+            <button class="prev-page hidden">Back</button><button class="next-page hidden">Forth</button>
+        </div>
       </main>
     </div>
-    <script src="onStartup.js"></script>
+    <footer>
+        <p>Copyright | Footer 2020. All rights reserved.</p>
+    </footer>
     <script src="script.js"></script>
+    <script src="onStartup.js"></script>
   </body>
 </html>
