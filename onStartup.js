@@ -24,12 +24,20 @@ async function loadNewestImagesAtStartup() {
     newArticle.appendChild(anchorTag);
 
     newArticle.classList.remove("prototype");
-    let img = newArticle.querySelector("img");
+    let img = newArticle.querySelector(".img-photo");
     img.setAttribute("alt", data[i].alt_description);
     img.setAttribute("src", data[i].urls.regular);
 
     let favoriteBtn = newArticle.querySelector(".favorite");
-    favoriteBtn.addEventListener("click", markAsFavorite);
+    favoriteBtn.addEventListener("click", () => {
+      if(favoriteBtn.src == 'http://127.0.0.1:5500/img/full-like.png')
+      {
+        favoriteBtn.src = "http://127.0.0.1:5500/img/like.png"
+      }else {
+        favoriteBtn.src = 'http://127.0.0.1:5500/img/full-like.png'
+      }
+      markAsFavorite()
+    });
 
     anchorTag.appendChild(img);
     container.appendChild(newArticle);
@@ -54,8 +62,7 @@ async function downloadImage() {
 
 function markAsFavorite() {
   let article = event.target.parentNode;
-  console.log(downloadedImages)
-  let img = article.querySelector("img");
+  let img = article.querySelector(".img-photo");
 
   let urlToLookFor = img.src;
 
@@ -127,6 +134,7 @@ async function showSearchedImage(input, callback) {
   containerGallery.innerHTML = "";
   downloadedImages = [];
   let data = await callback(input);
+  console.log(data)
   if (data != null) {
     let photoData = data.results;
     photoData.map((photo) => {
@@ -138,7 +146,7 @@ async function showSearchedImage(input, callback) {
 
       let newArticle = article_photo.cloneNode(true);
       newArticle.classList.remove("prototype");
-      let img = newArticle.querySelector("img");
+      let img = newArticle.querySelector(".img-photo");
       img.setAttribute("src", photo.urls.regular);
 
       let favoriteBtn = newArticle.querySelector(".favorite");
