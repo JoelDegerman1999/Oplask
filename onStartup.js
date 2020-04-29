@@ -3,30 +3,73 @@ const sortOrder = "latest";
 let pageCount = 1;
 
 let imageArray = document.querySelectorAll("img");
+let downloadedImages = [];
+let favoriteImages = [];
 
-async function fillImagesAtStartup(){
+async function loadNewestImagesAtStartup(){
     let response = await fetch(`https://api.unsplash.com/photos/?page=${pageCount}&order_by=${sortOrder}&client_id=${key}`);
     let data = await response.json();
 
-    console.log(data);
-
     for(let i = 0; i < data.length; i++){
+        downloadedImages.push(data[i]);
         imageArray[i].addEventListener("click", downloadImage);
-        imageArray[i].id = data[i].links.download;
+        imageArray[i].id = data[i].links.download_location;
         imageArray[i].setAttribute("src", data[i].urls.small);
         imageArray[i].setAttribute("alt", data[i].alt_description);
     }
+
+    //ge alla knappar funktionen att spara till favorit-listan
+    let selectButtons = document.querySelectorAll("button");
+    selectButtons.forEach(element => {
+        element.addEventListener("click", markAsFavorite);
+    });
 }
 
-//fungerar ej - TODO fixa
-function downloadImage(){
+//TODO fixa - fungerar ej i nyare Chrome-versioner
+async function downloadImage(){
+   
+    let url = event.target.id;
+    let response = await fetch(`${url}/?client_id=${key}`);
+    let data = await response.json();
+    let downloadLink = data.url;
+
     let linkCreated =  document.createElement("a");
+    linkCreated.setAttribute("href", downloadLink);
+    linkCreated.setAttribute("download", "output");
 
-    //event.target.id innehåller download-länken
-    linkCreated.setAttribute("href", event.target.id);
-    linkCreated.setAttribute("download", event.target.id);
+    document.body.appendChild(linkCreated);
     linkCreated.click();
-    linkCreated.parentNode.removeChild(linkCreated);
+    document.body.removeChild(linkCreated);
 }
 
-fillImagesAtStartup();
+function markAsFavorite(){
+
+    let urlToLookFor = event.target.parentNode.lastChild.src;
+
+    for(let i = 0; i < downloadedImages.length; i++){
+        if(downloadedImages[i].urls.small == urlToLookFor){
+            if(favoriteImages.includes(downloadedImages[i])){
+                //UN-FAVORITE
+                favoriteImages.splice(favoriteImages.indexOf(downloadedImages[i]),1);
+                console.log(favoriteImages);
+                return;
+            }
+            //FAVORITE
+            favoriteImages.push(downloadedImages[i]);
+            console.log(favoriteImages);
+        }
+    }
+}
+
+function loadFavoritesOnStartup(){
+    
+    for(let i = 0; i < favoriteImages.length; i++){
+        downloadedImages.push(favoriteImages[i]);
+        imageArray[i].addEventListener("click", downloadImage);
+        imageArray[i].id = favoriteImages[i].links.download_location;
+        imageArray[i].setAttribute("src", favoriteImages[i].urls.small);
+        imageArray[i].setAttribute("alt", favoriteImages[i].alt_description);
+    }
+}
+
+loadNewestImagesAtStartup();
