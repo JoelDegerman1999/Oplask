@@ -1,8 +1,8 @@
-const key = "qivyMbeL3252shGCXge88F3-1WyvLC3n1Gzf40YG84c";
-let pageCount = 1;
+const access_key = "qivyMbeL3252shGCXge88F3-1WyvLC3n1Gzf40YG84c";
+let page_count = 1;
 let maxPage;
-const articlePhoto = document.querySelector(".photo");
-const container = document.querySelector(".gallery");
+const article_photo = document.querySelector(".photo");
+const containerGallery = document.querySelector(".gallery");
 
 async function Main() {
   let input = document.querySelector(".search-input");
@@ -25,42 +25,40 @@ async function Main() {
 
 async function searchForImage(input) {
   let rawData = await fetch(
-    `https://api.unsplash.com/search/photos/?query=${input}&client_id=${key}&per_page=18&page=${pageCount}`
+    `https://api.unsplash.com/search/photos/?query=${input}&client_id=${access_key}&per_page=18`
   );
   let data = await rawData.json();
   return data;
 }
 
 async function showSearchedImage(input, callback) {
-  container.innerHTML = "";
+  containerGallery.innerHTML = "";
   let data = await callback(input);
   if (data != null) {
     let photoData = data.results;
-    console.log(photoData);
     photoData.map((photo) => {
-      let newArticle = articlePhoto.cloneNode(true);
+      let newArticle = article_photo.cloneNode(true);
       newArticle.classList.remove("prototype");
       let img = newArticle.querySelector("img");
       img.setAttribute("src", photo.urls.small);
-      container.appendChild(newArticle);
+      containerGallery.appendChild(newArticle);
     });
   }
 }
 
 async function nextPage(input) {
-  pageCount++;
-  if (pageCount !== maxPage) {
-    console.log("pagecount: " + pageCount);
+  page_count++;
+  if (page_count !== maxPage) {
     let rawData = await fetch(
-      `https://api.unsplash.com/search/photos/?query=${input}&client_id=${key}&per_page=18&page=${pageCount}`
+      `https://api.unsplash.com/search/photos/?query=${input}&client_id=${access_key}&per_page=18&page=${page_count}`
     );
     let data = await rawData.json();
     maxPage = data.total_pages;
     return data;
-  } else if (pageCount == maxPage) {
+  } else if (page_count == maxPage) {
     console.log("här");
     rawData = await fetch(
-      `https://api.unsplash.com/search/photos/?query=${input}&client_id=${key}&per_page=18&page=${maxPage}`
+      `https://api.unsplash.com/search/photos/?query=${input}&client_id=${access_key}&per_page=18&page=${maxPage}`
     );
     data = await rawData.json();
     return data;
@@ -68,19 +66,18 @@ async function nextPage(input) {
 }
 
 async function prevPage(input) {
-  pageCount--;
-  console.log("pagecount-prev : " + pageCount);
-  if (pageCount > 1) {
-    console.log(pageCount);
+  page_count--;
+  if (page_count > 1) {
+    console.log(page_count);
     let rawData = await fetch(
-      `https://api.unsplash.com/search/photos/?query=${input}&client_id=${key}&per_page=18&page=${pageCount}`
+      `https://api.unsplash.com/search/photos/?query=${input}&client_id=${access_key}&per_page=18&page=${page_count}`
     );
     let data = await rawData.json();
     return data;
   } else {
-    pageCount = 1;
+    page_count = 1;
     let rawData = await fetch(
-      `https://api.unsplash.com/search/photos/?query=${input}&client_id=${key}&per_page=18&page=1`
+      `https://api.unsplash.com/search/photos/?query=${input}&client_id=${access_key}&per_page=18&page=1`
     );
     let data = await rawData.json();
     return data;
