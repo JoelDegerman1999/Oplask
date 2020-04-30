@@ -7,6 +7,7 @@ const container = document.querySelector(".gallery");
 let downloadedImages = [];
 let favoriteImages = JSON.parse(localStorage.getItem("favoriteImages"));
 
+if(favoriteImages == null) favoriteImages = []
 
 async function loadNewestImagesAtStartup() {
   let response = await fetch(
@@ -31,13 +32,12 @@ async function loadNewestImagesAtStartup() {
 
     let favoriteBtn = newArticle.querySelector(".favorite");
     favoriteBtn.addEventListener("click", () => {
-      if(favoriteBtn.src == 'http://127.0.0.1:5500/img/full-like.png')
-      {
-        favoriteBtn.src = "http://127.0.0.1:5500/img/like.png"
-      }else {
-        favoriteBtn.src = 'http://127.0.0.1:5500/img/full-like.png'
+      if (favoriteBtn.src == "http://127.0.0.1:5500/img/full-like.png") {
+        favoriteBtn.src = "http://127.0.0.1:5500/img/like.png";
+      } else {
+        favoriteBtn.src = "http://127.0.0.1:5500/img/full-like.png";
       }
-      markAsFavorite()
+      markAsFavorite();
     });
 
     anchorTag.appendChild(img);
@@ -62,19 +62,21 @@ async function downloadImage() {
 }
 
 function markAsFavorite() {
+
   let article = event.target.parentNode;
   let img = article.querySelector(".img-photo");
 
   let urlToLookFor = img.src;
 
-  if(favoriteImages == null) favoriteImages = []
-
   for (let i = 0; i < downloadedImages.length; i++) {
     if (downloadedImages[i].urls.regular == urlToLookFor) {
+      console.log("utanför unfavo")
       if (favoriteImages.includes(downloadedImages[i])) {
+        console.log("unfavo")
         //UN-FAVORITE
         favoriteImages.splice(favoriteImages.indexOf(downloadedImages[i]), 1);
         console.log(favoriteImages);
+        localStorage.setItem("favoriteImages", JSON.stringify(favoriteImages));
         return;
       }
       //FAVORITE
@@ -87,41 +89,47 @@ function markAsFavorite() {
 }
 
 function loadFavoritesOnStartup() {
- 
   let favorites = JSON.parse(localStorage.getItem("favoriteImages"));
-  if(favorites == null) favorites = []
+  if (favorites == null) favorites = [];
+
+  let clearStorageBtn = document.querySelector(".clear-storage");
+
+  clearStorageBtn.addEventListener("click", () => {
+    localStorage.clear();
+    location.reload();
+  });
 
   for (let i = 0; i < favorites.length; i++) {
-      downloadedImages.push(favorites[i]);
-      let newArticle = articlePhoto.cloneNode(true);
- 
-      let anchorTag = document.createElement("a");
-      anchorTag.setAttribute("href", favorites[i].urls.full);
-      anchorTag.setAttribute("data-lightbox", "mygallery");
-      anchorTag.setAttribute("data-title", favorites[i].user.name);
-      newArticle.appendChild(anchorTag);
- 
-      newArticle.classList.remove("prototype");
-      let img = newArticle.querySelector(".img-photo");
-      img.setAttribute("alt", favorites[i].alt_description);
-      img.setAttribute("src", favorites[i].urls.regular);
- 
-      let favoriteBtn = newArticle.querySelector(".favorite");
-      favoriteBtn.addEventListener("click", markAsFavorite);
- 
-      anchorTag.appendChild(img);
-      container.appendChild(newArticle);
-    }
+    downloadedImages.push(favorites[i]);
+    let newArticle = articlePhoto.cloneNode(true);
+
+    let anchorTag = document.createElement("a");
+    anchorTag.setAttribute("href", favorites[i].urls.full);
+    anchorTag.setAttribute("data-lightbox", "mygallery");
+    anchorTag.setAttribute("data-title", favorites[i].user.name);
+    newArticle.appendChild(anchorTag);
+
+    newArticle.classList.remove("prototype");
+    let img = newArticle.querySelector(".img-photo");
+    img.setAttribute("alt", favorites[i].alt_description);
+    img.setAttribute("src", favorites[i].urls.regular);
+
+    let favoriteBtn = newArticle.querySelector(".favorite");
+    favoriteBtn.addEventListener("click", markAsFavorite);
+
+    anchorTag.appendChild(img);
+    container.appendChild(newArticle);
+  }
 }
 
 let path = window.location.pathname;
 let page = path.split("/").pop();
-if(page == "index.html"){
-    loadNewestImagesAtStartup();
-    console.log(favoriteImages)
-  }else if(page == "favorites.html"){
-    console.log(favoriteImages)
-    loadFavoritesOnStartup();
+if (page == "index.html") {
+  loadNewestImagesAtStartup();
+  console.log(favoriteImages);
+} else if (page == "favorites.html") {
+  console.log(favoriteImages);
+  loadFavoritesOnStartup();
 }
 
 /*script.js                                  */
@@ -165,7 +173,7 @@ async function showSearchedImage(input, callback) {
   containerGallery.innerHTML = "";
   downloadedImages = [];
   let data = await callback(input);
-  console.log(data)
+  console.log(data);
   if (data != null) {
     let photoData = data.results;
     photoData.map((photo) => {
