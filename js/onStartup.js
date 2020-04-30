@@ -5,7 +5,8 @@ let pageCount = 1;
 const articlePhoto = document.querySelector(".photo");
 const container = document.querySelector(".gallery");
 let downloadedImages = [];
-let favoriteImages = [];
+let favoriteImages = JSON.parse(localStorage.getItem("favoriteImages"));
+
 
 async function loadNewestImagesAtStartup() {
   let response = await fetch(
@@ -66,6 +67,8 @@ function markAsFavorite() {
 
   let urlToLookFor = img.src;
 
+  if(favoriteImages == null) favoriteImages = []
+
   for (let i = 0; i < downloadedImages.length; i++) {
     if (downloadedImages[i].urls.regular == urlToLookFor) {
       if (favoriteImages.includes(downloadedImages[i])) {
@@ -79,19 +82,47 @@ function markAsFavorite() {
       console.log(favoriteImages);
     }
   }
+
+  localStorage.setItem("favoriteImages", JSON.stringify(favoriteImages));
 }
 
 function loadFavoritesOnStartup() {
-  for (let i = 0; i < favoriteImages.length; i++) {
-    downloadedImages.push(favoriteImages[i]);
-    imageArray[i].addEventListener("click", downloadImage);
-    imageArray[i].id = favoriteImages[i].links.download_location;
-    imageArray[i].setAttribute("src", favoriteImages[i].urls.regular);
-    imageArray[i].setAttribute("alt", favoriteImages[i].alt_description);
-  }
+ 
+  let favorites = JSON.parse(localStorage.getItem("favoriteImages"));
+  if(favorites == null) favorites = []
+
+  for (let i = 0; i < favorites.length; i++) {
+      downloadedImages.push(favorites[i]);
+      let newArticle = articlePhoto.cloneNode(true);
+ 
+      let anchorTag = document.createElement("a");
+      anchorTag.setAttribute("href", favorites[i].urls.full);
+      anchorTag.setAttribute("data-lightbox", "mygallery");
+      anchorTag.setAttribute("data-title", favorites[i].user.name);
+      newArticle.appendChild(anchorTag);
+ 
+      newArticle.classList.remove("prototype");
+      let img = newArticle.querySelector(".img-photo");
+      img.setAttribute("alt", favorites[i].alt_description);
+      img.setAttribute("src", favorites[i].urls.regular);
+ 
+      let favoriteBtn = newArticle.querySelector(".favorite");
+      favoriteBtn.addEventListener("click", markAsFavorite);
+ 
+      anchorTag.appendChild(img);
+      container.appendChild(newArticle);
+    }
 }
 
-loadNewestImagesAtStartup();
+let path = window.location.pathname;
+let page = path.split("/").pop();
+if(page == "index.html"){
+    loadNewestImagesAtStartup();
+    console.log(favoriteImages)
+  }else if(page == "favorites.html"){
+    console.log(favoriteImages)
+    loadFavoritesOnStartup();
+}
 
 /*script.js                                  */
 
