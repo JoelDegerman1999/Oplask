@@ -3,30 +3,44 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" type="text/css" href="style.css" />
-    <title>Oplask</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <link rel="stylesheet" href="css/lightbox.min.css">
+    <script src="lightbox-plus-jquery.min.js"></script>
+    <title>Oplask</title>
   </head>
   <body>
     <div class="wrapper">
       <header>
-        <h1>Oplask</h1>
-        <a href="favorites.html" class="favorites-link">Favorites</a>
-        <input type="text" placeholder="Search.." class="search-input" />
+        <div class="div-header">
+         <a href="index.html"> <h1>Oplask</h1></a>
+          <div class="favorites-wrapper-index">
+            <a href="favorites.html" class="favorites-link">Favorites</a>
+            <img class="heart-pic-index" src="heart.svg" />
+            </div>
+        </div>
+       
+        <div class="search-wrapper-index">
+            <!-- <img class="search-pic-index" src="magnifier.svg" /> -->
+            <input type="text" placeholder="Search.." class="search-input" />
+        </div>
       </header>
 
       <main>
         <section class="gallery">
           <article class="photo prototype">
-            <button class="favorite">Favorite</button>
+            <button class="favorite">fav</button>
             <img src="" alt="" />
           </article>
         </section>
-        <button class="prev-page">Previous page</button>
-        <button class="next-page">Next page</button>
+        <div class="buttons">
+            <button class="prev-page hidden">Back</button><button class="next-page hidden">Forth</button>
+        </div>
       </main>
+      <footer>
+          <p>Copyright | Footer 2020. All rights reserved.</p>
+      </footer>
     </div>
-    <script src="script.js"></script>
-    <script src="localStorage.js"></script>
+    <script src="onStartup.js"></script>
   </body>
 </html>
